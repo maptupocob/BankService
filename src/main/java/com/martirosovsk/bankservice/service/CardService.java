@@ -3,7 +3,6 @@ package com.martirosovsk.bankservice.service;
 import com.martirosovsk.bankservice.DTO.AccountNumberDTO;
 import com.martirosovsk.bankservice.DTO.CardDTO;
 
-import java.util.List;
 import java.util.Set;
 
 public interface CardService {

@@ -3,6 +3,8 @@ package com.martirosovsk.bankservice.controller;
 
 import com.martirosovsk.bankservice.BankServiceApplication;
 import com.martirosovsk.bankservice.DTO.AccountDTO;
+import com.martirosovsk.bankservice.DTO.BalanceChangeDTO;
+import com.martirosovsk.bankservice.DTO.CardDTO;
 import com.martirosovsk.bankservice.domain.Enums.Currency;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,15 +28,27 @@ public class AccountControllerTest {
 
     @Test
     public void getAccountDTOTest() {
-        AccountDTO testDCO = new AccountDTO(1, 11, 0, Currency.RUB);
+        AccountDTO testDTO = new AccountDTO(1, 11, 0, Currency.RUB);
         ResponseEntity<AccountDTO> requestDTO =
                 restTemplate.getForEntity("/api/accounts/1/", AccountDTO.class);
         assertTrue(requestDTO.getStatusCode().is2xxSuccessful());
         assertNotNull(requestDTO.getBody());
-        assertEquals(requestDTO.getBody(), testDCO);
+        assertEquals(requestDTO.getBody(), testDTO);
         assertEquals(requestDTO.getBody().getNumber(), 11);
     }
 
+
+    @Test
+    public void updateBalance() {
+        BalanceChangeDTO balanceChangeDTO = new BalanceChangeDTO(21, 1000);
+        AccountDTO testAccountDTO = new AccountDTO(3, 21, 1100, Currency.RUB);
+        ResponseEntity<AccountDTO> requestDTO =
+                restTemplate.postForEntity("/api/balance", balanceChangeDTO, AccountDTO.class);
+        assertTrue(requestDTO.getStatusCode().is2xxSuccessful());
+        assertNotNull(requestDTO.getBody());
+        assertEquals(requestDTO.getBody(), testAccountDTO);
+
+    }
 
 
 }

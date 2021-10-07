@@ -1,32 +1,30 @@
 package com.martirosovsk.bankservice.controller;
 
 import com.martirosovsk.bankservice.DTO.AccountDTO;
+import com.martirosovsk.bankservice.DTO.BalanceChangeDTO;
 import com.martirosovsk.bankservice.service.AccountService;
 import lombok.Data;
 import org.springframework.web.bind.annotation.*;
 
 @Data
 @RestController
-@RequestMapping("/api/accounts/")
+@RequestMapping("/api")
 public class AccountController {
 
     private final AccountService accSrv;
 
-    @GetMapping("/{accountId}/balance")
-    private long getBalanceByAccountId(@PathVariable("accountId") int accountId){
-        return accSrv.getBalanceByAccountId( accountId);
+    @GetMapping("/balance")
+    private long getBalanceByAccountId(@RequestParam("accountId") int accountId) {
+        return accSrv.getBalanceByAccountId(accountId);
     }
 
-    @PostMapping("/{accountId}/balance")
-    private AccountDTO updateBalance(@PathVariable("accountId") int accountId,
-                                     @RequestParam("amount") int amount) {
-        return accSrv.updateBalance(accountId, amount);
+    @PostMapping("/balance")
+    private AccountDTO updateBalance(@RequestBody BalanceChangeDTO balanceChangeDTO) {
+        return accSrv.updateBalance(balanceChangeDTO);
     }
 
-    @GetMapping("/{accountId}")
+    @GetMapping("/accounts/{accountId}")
     private AccountDTO getAccountInfo(@PathVariable("accountId") int accountId) {
         return accSrv.findById(accountId);
     }
-
-
 }

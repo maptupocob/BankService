@@ -11,7 +11,6 @@ import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,7 +21,6 @@ public class CardServiceImpl implements CardService {
     private final CardDAO crdDAO;
     private final CardDCO crdDCO;
     private final AccountDAO accDAO;
-
 
     @Override
     public Set<CardDTO> findAllByAccountId(int clientId) {
@@ -44,6 +42,4 @@ public class CardServiceImpl implements CardService {
             throw new RuntimeException(e.getMessage());
         }
     }
-
-
 }

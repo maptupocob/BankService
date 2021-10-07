@@ -10,21 +10,12 @@ public class CardNumberUtil {
      * @return card number string
      */
     public static String getNextCardNumber() {
-        long cardId = getNextCardId() + (long) (1_0000 * Math.random());
+        cardId = cardId + (long) (1_0000 * Math.random());
         int firstBankGroup = bankId / 100;
         int secondBankGroup = bankId % 100;
         int firstCardGroup = (int) (cardId / 1_0000_0000);
         int secondCardGroup = (int) ((cardId / 1_0000) % 1_0000);
         int thirdCardGroup = (int) (cardId % 1_0000);
         return String.format("%d %d%d %04d %04d", firstBankGroup, secondBankGroup, firstCardGroup, secondCardGroup, thirdCardGroup);
-    }
-
-    /**
-     * generating next unique card part of card number
-     *
-     * @return new card part of card number
-     */
-    private static long getNextCardId() {
-        return cardId++;
     }
 }

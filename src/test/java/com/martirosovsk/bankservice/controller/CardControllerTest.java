@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
@@ -28,17 +30,18 @@ public class CardControllerTest {
                 new CardDTO(2, "1234 5678 9012 1235"),
                 new CardDTO(3, "1234 5678 9012 1236")};
         ResponseEntity<CardDTO[]> requestDTOArr =
-                restTemplate.getForEntity("/api/cards?accountId=1", CardDTO[].class);
+                restTemplate.getForEntity("/api/cards/all?accountId=1", CardDTO[].class);
         assertTrue(requestDTOArr.getStatusCode().is2xxSuccessful());
         assertNotNull(requestDTOArr.getBody());
-        assertArrayEquals(requestDTOArr.getBody(), cardDTOArr);
+        System.out.println(Arrays.toString(requestDTOArr.getBody()));
+        assertArrayEquals(cardDTOArr, requestDTOArr.getBody());
     }
 
     @Test
     public void cardIssueByAccountIDTest() {
-        AccountNumberDTO accountNumberDTO = new AccountNumberDTO(12);
+        AccountNumberDTO accountNumberDTO = new AccountNumberDTO(22);
         ResponseEntity<CardDTO> requestDTO =
-                restTemplate.postForEntity("/api/cards", accountNumberDTO, CardDTO.class);
+                restTemplate.postForEntity("/api/cards/issue", accountNumberDTO, CardDTO.class);
         assertTrue(requestDTO.getStatusCode().is2xxSuccessful());
         assertNotNull(requestDTO.getBody());
         assertEquals(requestDTO.getBody().getNumber().length(), 19);

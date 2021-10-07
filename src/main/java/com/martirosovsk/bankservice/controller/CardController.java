@@ -15,12 +15,12 @@ public class CardController {
 
     private final CardService crdSrv;
 
-    @GetMapping()
+    @GetMapping("/all")
     public Set<CardDTO> findAllByAccountId(@RequestParam("accountId") int accId) {
         return crdSrv.findAllByAccountId(accId);
     }
 
-    @PostMapping()
+    @PostMapping("/issue")
     private CardDTO cardIssueByAccountID(@RequestBody() AccountNumberDTO accountNumberDTO) {
         return crdSrv.cardIssueByAccountNumber(accountNumberDTO);
     }
