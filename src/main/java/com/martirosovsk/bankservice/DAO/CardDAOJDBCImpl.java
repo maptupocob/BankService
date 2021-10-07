@@ -69,10 +69,4 @@ public class CardDAOJDBCImpl implements CardDAO {
             ConnectionManager.closeConnection(connection);
         }
     }
-
-//    private static final String CREATE_TABLE_CARDS = "CREATE TABLE IF NOT EXISTS Cards (" +
-//            " id INT AUTO_INCREMENT PRIMARY KEY, " +
-//            "    owner_id int NOT NULL, " +
-//            "    number VARCHAR(255) NOT NULL)";
-
 }
